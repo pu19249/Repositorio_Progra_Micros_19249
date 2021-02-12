@@ -71,11 +71,11 @@ main:
     bsf	    TRISA, 7 ;RA7 como input
     
     ;puerto B como salida
-    ;bcf	    STATUS, 5;banco00
-    ;bcf	    STATUS, 6
-    ;clrf    PORTB
-    ;bsf	    STATUS, 5;banco01
-    ;bcf	    STATUS, 6
+    ;bcf    STATUS, 5;banco00
+    ;bcf    STATUS, 6
+    ;clrf   PORTB
+    ;bsf    STATUS, 5;banco01
+    ;bcf    STATUS, 6
     BANKSEL TRISB
     bcf	    TRISB, 0
     bcf	    TRISB, 1
@@ -83,11 +83,11 @@ main:
     bcf	    TRISB, 3
     
     ;salidas del puerto C
-    ;bcf	    STATUS, 5;banco00
-    ;bcf	    STATUS, 6
-    ;clrf    PORTC
-    ;bsf	    STATUS, 5;banco01
-    ;bcf	    STATUS, 6
+    ;bcf    STATUS, 5;banco00
+    ;bcf    STATUS, 6
+    ;clrf   PORTC
+    ;bsf    STATUS, 5;banco01
+    ;bcf    STATUS, 6
     BANKSEL TRISC
     bcf	    TRISC, 0 ;RC0 como salida
     bcf	    TRISC, 1 ;RC1 como salida
@@ -95,11 +95,11 @@ main:
     bcf	    TRISC, 3 ;RC3 como salida
     
     ;salidas del puerto D
-    ;bcf	    STATUS, 5;banco00
-    ;bcf	    STATUS, 6
-    ;clrf    PORTD
-    ;bsf	    STATUS, 5;banco01
-    ;bcf	    STATUS, 6
+    ;bcf    STATUS, 5;banco00
+    ;bcf    STATUS, 6
+    ;clrf   PORTD
+    ;bsf    STATUS, 5;banco01
+    ;bcf    STATUS, 6
     BANKSEL TRISD
     bcf	    TRISD, 0 ;RD0 como salida
     bcf	    TRISD, 1 ;RD1 como salida
@@ -108,8 +108,8 @@ main:
     bcf	    TRISD, 4 ;RD4 como salida
     
     ;regresar al banco 0 para operar
-    ;bcf	    STATUS, 5	;banco00
-    ;bcf	    STATUS, 6
+    ;bcf    STATUS, 5	;banco00
+    ;bcf    STATUS, 6
     BANKSEL PORTA
     clrf    PORTA
     BANKSEL PORTB
@@ -153,22 +153,6 @@ main:
 	clrf  PORTC
 	return
 	
-    ;el puerto B tiene el contador 1 y el puerto C el contador 2
-    debounce_suma:
-	call delay_big
-	btfss PORTA, 4
-	goto $-1
-	movf PORTB, 0	    ;esto hace que mueva el registro a W
-	;movlw PORTB
-	;movwf cont1
-	;movlw PORTC
-	;movwf cont2
-	;movf cont1, 0	    ;lo mueve a W
-	;movf PORTC, 1	    ;se mueve al registro mismo
-	addwf PORTC, 0	    ;suma w que tiene el puerto B y lo guarda en el registro PORTC mismo 
-	movwf PORTD	    ;mueve el resultado al puerto D
-	return
-	
     ;antirrebotes para decrementos para push2 y push4 respectivamente
     anti_dec:
 	call delay_big
@@ -186,6 +170,21 @@ main:
 	decfsz PORTC, 1
 	return
 	
+    ;el puerto B tiene el contador 1 y el puerto C el contador 2
+    debounce_suma:
+	call delay_big
+	btfss PORTA, 4
+	goto $-1
+	movf PORTB, 0	    ;esto hace que mueva el registro a W
+	;movlw PORTB
+	;movwf cont1
+	;movlw PORTC
+	;movwf cont2
+	;movf cont1, 0	    ;lo mueve a W
+	;movf PORTC, 1	    ;se mueve al registro mismo
+	addwf PORTC, 0	    ;suma w que tiene el puerto B y lo guarda en el registro PORTC mismo 
+	movwf PORTD	    ;mueve el resultado al puerto D
+	return
 	
     ;---------------delays que eliminan el ruido para los push------------------
     
