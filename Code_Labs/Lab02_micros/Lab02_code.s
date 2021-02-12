@@ -7,7 +7,7 @@
 ; Hardware: LEDS en el puerto C, D, E, push en A
 ;
 ; Creado: 09 feb, 2021
-; Ultima modificacion: 09 feb, 2021
+; Ultima modificacion: 12 feb, 2021
     
 PROCESSOR 16F887
 #include <xc.inc>
@@ -38,6 +38,7 @@ PSECT udata_shr; common memory
     
 PSECT resVect, class=code, abs, delta=2
 ;--------------------------vector reset-----------------------------------------
+    
 ORG 00h	    ;posicion 0000h para el reset
 resetVec:
     PAGESEL main
@@ -47,6 +48,7 @@ PSECT code, delta=2, abs
 ORG 100h    ;posicion para el codigo
 
 ;----------------------configuracion de los pines-------------------------------
+ 
 main:
     ;entradas del puerto A
     ;bcf	    STATUS, 5 ;banco00
@@ -131,12 +133,15 @@ main:
 	goto loop
 
 ;--------------------------sub-rutinas------------------------------------------
+	
    ;antirrebotes para incremento push1 y push3 respectivamente
     debounce:
 	call delay_big      ;esto hace que espere para que se estabilice el ruido
 	btfss PORTA, 0	    ;verificar el pin RA0
 	goto $-1	    ;se queda evaluando si esta en 1 no avanza hasta que cambia a 0
 	incf  PORTB, 1	    ;guarda el resultado en el registro PORTB
+	btfsc PORTB, 4
+	clrf  PORTB
 	return
 	
     debounce_2:
@@ -144,6 +149,8 @@ main:
 	btfss PORTA, 2	    ;
 	goto $-1	    ;se queda evaluando si esta en 1 no avanza hasta que cambia a 0
 	incf  PORTC, 1
+	btfsc PORTC, 4
+	clrf  PORTC
 	return
 	
     ;el puerto B tiene el contador 1 y el puerto C el contador 2
@@ -151,15 +158,15 @@ main:
 	call delay_big
 	btfss PORTA, 4
 	goto $-1
-	;movf PORTB, 0	;esto hace que mueva el registro a W
-	movlw PORTB
-	movwf cont1
-	movlw PORTC
+	movf PORTB, 0	    ;esto hace que mueva el registro a W
+	;movlw PORTB
+	;movwf cont1
+	;movlw PORTC
 	;movwf cont2
-	;movf cont1, 0   ;lo mueve a W
-	;movf PORTC, 1   ;se mueve al registro mismo
-	addwf PORTC, 0  ;suma w que tiene el puerto B y lo guarda en el registro PORTD mismo 
-	movwf PORTD
+	;movf cont1, 0	    ;lo mueve a W
+	;movf PORTC, 1	    ;se mueve al registro mismo
+	addwf PORTC, 0	    ;suma w que tiene el puerto B y lo guarda en el registro PORTC mismo 
+	movwf PORTD	    ;mueve el resultado al puerto D
 	return
 	
     ;antirrebotes para decrementos para push2 y push4 respectivamente
@@ -167,16 +174,21 @@ main:
 	call delay_big
 	btfss PORTA, 1
 	goto $-1
-	decf PORTB, 1    ;esto replica el antirrebote pero decrementa
+	;decf PORTB, 1	    ;esto replica el antirrebote pero decrementa
+	decfsz PORTB, 1
 	return
 	
     anti_dec_2:
 	call delay_big
 	btfss PORTA, 3
 	goto $-1
-	decf PORTC, 1    ;esto replica el antirrebote pero decrementa
+	;decf PORTC, 1	    ;esto replica el antirrebote pero decrementa
+	decfsz PORTC, 1
 	return
 	
+	
+    ;---------------delays que eliminan el ruido para los push------------------
+    
     delay_big:
 	movlw   200		    ;valor inicial del contador
 	movwf   cont_big

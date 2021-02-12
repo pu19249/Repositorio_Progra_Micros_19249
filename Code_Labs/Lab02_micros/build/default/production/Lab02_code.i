@@ -2586,6 +2586,8 @@ main:
  btfss PORTA, 0 ;verificar el pin ((PORTA) and 07Fh), 0
  goto $-1 ;se queda evaluando si esta en 1 no avanza hasta que cambia a 0
  incf PORTB, 1 ;guarda el resultado en el registro PORTB
+ btfsc PORTB, 4
+ clrf PORTB
  return
 
     debounce_2:
@@ -2593,6 +2595,8 @@ main:
  btfss PORTA, 2 ;
  goto $-1 ;se queda evaluando si esta en 1 no avanza hasta que cambia a 0
  incf PORTC, 1
+ btfsc PORTC, 4
+ clrf PORTC
  return
 
     ;el puerto B tiene el contador 1 y el puerto C el contador 2
@@ -2600,15 +2604,15 @@ main:
  call delay_big
  btfss PORTA, 4
  goto $-1
- ;movf PORTB, 0 ;esto hace que mueva el registro a W
- movlw PORTB
- movwf cont1
- movlw PORTC
+ movf PORTB, 0 ;esto hace que mueva el registro a W
+ ;movlw PORTB
+ ;movwf cont1
+ ;movlw PORTC
  ;movwf cont2
  ;movf cont1, 0 ;lo mueve a W
  ;movf PORTC, 1 ;se mueve al registro mismo
- addwf PORTC, 0 ;suma w que tiene el puerto B y lo guarda en el registro PORTD mismo
- movwf PORTD
+ addwf PORTC, 0 ;suma w que tiene el puerto B y lo guarda en el registro PORTC mismo
+ movwf PORTD ;mueve el resultado al puerto D
  return
 
     ;antirrebotes para decrementos para push2 y push4 respectivamente
@@ -2616,14 +2620,16 @@ main:
  call delay_big
  btfss PORTA, 1
  goto $-1
- decf PORTB, 1 ;esto replica el antirrebote pero decrementa
+ ;decf PORTB, 1 ;esto replica el antirrebote pero decrementa
+ decfsz PORTB, 1
  return
 
     anti_dec_2:
  call delay_big
  btfss PORTA, 3
  goto $-1
- decf PORTC, 1 ;esto replica el antirrebote pero decrementa
+ ;decf PORTC, 1 ;esto replica el antirrebote pero decrementa
+ decfsz PORTC, 1
  return
 
     delay_big:
