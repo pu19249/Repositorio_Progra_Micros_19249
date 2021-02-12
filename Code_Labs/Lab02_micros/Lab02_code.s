@@ -105,10 +105,10 @@ main:
     bcf	    TRISD, 1 ;RD1 como salida
     bcf	    TRISD, 2 ;RD2 como salida
     bcf	    TRISD, 3 ;RD3 como salida
-    ;bcf	    TRISD, 4 ;RD4 como salida
+    bcf	    TRISD, 4 ;RD4 como salida
     
-    BANKSEL TRISE
-    bcf	    TRISE, 0  ;RE0 como salida
+    ;BANKSEL TRISE
+    ;bcf	    TRISE, 0  ;RE0 como salida
     ;regresar al banco 0 para operar
     ;bcf    STATUS, 5	;banco00
     ;bcf    STATUS, 6
@@ -120,8 +120,8 @@ main:
     clrf    PORTC
     BANKSEL PORTD
     clrf    PORTD
-    BANKSEL PORTE
-    clrf    PORTE
+    ;BANKSEL PORTE
+    ;clrf    PORTE
     BANKSEL STATUS
     clrf    STATUS
 ;----------------------------loop principal-------------------------------------
@@ -170,7 +170,6 @@ main:
 	btfss PORTA, 3
 	goto $-1
 	decf PORTC, 1	    ;esto replica el antirrebote pero decrementa
-	;decfsz PORTC, 1
 	return
 	
     ;el puerto B tiene el contador 1 y el puerto C el contador 2

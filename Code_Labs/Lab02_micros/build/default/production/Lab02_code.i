@@ -2554,10 +2554,10 @@ main:
     bcf TRISD, 1 ;((PORTD) and 07Fh), 1 como salida
     bcf TRISD, 2 ;((PORTD) and 07Fh), 2 como salida
     bcf TRISD, 3 ;((PORTD) and 07Fh), 3 como salida
-    ;bcf TRISD, 4 ;((PORTD) and 07Fh), 4 como salida
+    bcf TRISD, 4 ;((PORTD) and 07Fh), 4 como salida
 
-    BANKSEL TRISE
-    bcf TRISE, 0 ;((PORTE) and 07Fh), 0 como salida
+    ;BANKSEL TRISE
+    ;bcf TRISE, 0 ;((PORTE) and 07Fh), 0 como salida
     ;regresar al banco 0 para operar
     ;bcf STATUS, 5 ;banco00
     ;bcf STATUS, 6
@@ -2569,8 +2569,8 @@ main:
     clrf PORTC
     BANKSEL PORTD
     clrf PORTD
-    BANKSEL PORTE
-    clrf PORTE
+    ;BANKSEL PORTE
+    ;clrf PORTE
     BANKSEL STATUS
     clrf STATUS
 ;----------------------------loop principal-------------------------------------
@@ -2611,15 +2611,16 @@ main:
  call delay_big
  btfss PORTA, 1
  goto $-1
- decf PORTB, 1 ;esto replica el antirrebote pero decrementa
+ ;decf PORTB, 1 ;esto replica el antirrebote pero decrementa
+ decfsz PORTB, 1
  return
 
     anti_dec_2:
  call delay_big
  btfss PORTA, 3
  goto $-1
- decf PORTC, 1 ;esto replica el antirrebote pero decrementa
- ;decfsz PORTC, 1
+ ;decf PORTC, 1 ;esto replica el antirrebote pero decrementa
+ decfsz PORTC, 1
  return
 
     ;el puerto B tiene el contador 1 y el puerto C el contador 2
@@ -2628,26 +2629,10 @@ main:
  btfss PORTA, 4
  goto $-1
  movf PORTB, 0 ;esto hace que mueva el registro a W
- ;movlw PORTB
- ;movwf cont1
- ;movlw PORTC
- ;movwf cont2
- ;movf cont1, 0 ;lo mueve a W
- ;movf PORTC, 1 ;se mueve al registro mismo
  addwf PORTC, 0 ;suma w que tiene el puerto B y lo guarda en el registro PORTC mismo
  movwf PORTD ;mueve el resultado al puerto D
-
-
-
-
- call carry_check
  return
 
- carry_check:
-     BANKSEL STATUS
-     btfss STATUS, 0
-     bsf PORTE, 0
-     return
 
     ;---------------delays que eliminan el ruido para los push------------------
 
