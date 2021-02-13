@@ -2611,16 +2611,14 @@ main:
  call delay_big
  btfss PORTA, 1
  goto $-1
- ;decf PORTB, 1 ;esto replica el antirrebote pero decrementa
- decfsz PORTB, 1
+ decf PORTB, 1 ;esto replica el antirrebote pero decrementa
  return
 
     anti_dec_2:
  call delay_big
  btfss PORTA, 3
  goto $-1
- ;decf PORTC, 1 ;esto replica el antirrebote pero decrementa
- decfsz PORTC, 1
+ decf PORTC, 1 ;esto replica el antirrebote pero decrementa
  return
 
     ;el puerto B tiene el contador 1 y el puerto C el contador 2
