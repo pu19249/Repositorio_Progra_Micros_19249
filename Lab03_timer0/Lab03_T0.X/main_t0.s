@@ -45,7 +45,7 @@ ORG 00h	    ;posicion 0000h para el reset
 ;*******************************************************************************
 PSECT code, delta=2, abs
 	ORG 100h
-    tabla_disp:
+    tabla_disp:  ;tabla para el display de 7seg
 	CLRF	PCLATH
 	BSF	PCLATH, 0   ;PCLATH = 01 PCL =02
 	ANDLW	0x0f
@@ -69,7 +69,8 @@ PSECT code, delta=2, abs
 	
 PSECT code, delta=2, abs
     ORG 114h
-  main:
+  
+main:
     BANKSEL ANSEL	;configuracion para que sean digitales
     CLRF    ANSEL
     BANKSEL ANSELH
@@ -134,8 +135,8 @@ PSECT code, delta=2, abs
 	CALL	incrementar_display
 	BTFSS	PORTA, 1	;push 2 para decrementar
 	CALL	decrementar_display
-	BCF	PORTE, 0
-	CALL	alarma
+	BCF	PORTE, 0	;esto hace que se pueda apagar el led de alarma
+	CALL	alarma		;subrutina de alarma
 	GOTO	mainloop
 	
 ;*******************************************************************************
@@ -152,12 +153,12 @@ PSECT code, delta=2, abs
 	BTFSS	PORTA, 0
 	GOTO	$-1
 	INCF	display_seven
-	MOVF	display_seven, W
+	MOVF	display_seven, W    ;para que funcione el 7seg se usa la variable para 'traducir' a hex
 	CALL	tabla_disp
 	MOVWF	PORTD, 1
 	RETURN
 
-    decrementar_display:
+    decrementar_display:	    ;rutina para decrementar usando la misma tabla
 	BTFSS	PORTA, 1
 	GOTO	$-1
 	DECF	display_seven
@@ -167,18 +168,18 @@ PSECT code, delta=2, abs
 	RETURN
 	
     alarma:
-	MOVF	display_seven, 0
+	MOVF	display_seven, 0    
 	SUBWF	PORTB, 0
-	BTFSC	STATUS, 2
-	CALL	led
+	BTFSC	STATUS, 2	    ;este bit revisa si el resultado es 0 y se hace el carry
+	CALL	led		    ;subrutina para probar el led
 	RETURN
 	
     led:
-	BANKSEL PORTE
-	CLRF	PORTE
-	BSF	PORTE, 0
-	CLRF	PORTB
-	RETURN
+	BANKSEL PORTE		    
+	CLRF	PORTE		    ;inicializar puerto e
+	BSF	PORTE, 0	    ;encender el led
+	CLRF	PORTB		    ;reiniciar contador en puerto b
+	RETURN			    
 	
 	
 END
