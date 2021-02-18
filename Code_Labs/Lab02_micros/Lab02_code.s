@@ -146,8 +146,6 @@ main:
 	btfss PORTA, 0	    ;verificar el pin RA0
 	goto $-1	    ;se queda evaluando si esta en 1 no avanza hasta que cambia a 0
 	incf  PORTB, 1	    ;guarda el resultado en el registro PORTB
-	btfsc PORTB, 4
-	clrf  PORTB
 	return
 	
     debounce_2:

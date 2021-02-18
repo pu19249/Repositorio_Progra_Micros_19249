@@ -1,15 +1,14 @@
-# 1 "Lab02_code.s"
+# 1 "main_t0.s"
 # 1 "<built-in>" 1
-# 1 "Lab02_code.s" 2
-; Archivo: Lab02_code.s
+# 1 "main_t0.s" 2
+; Archivo: main_t0.s
 ; Dispositivo: PIC16F887
 ; Autor: Jonathan Pu
 ; Compilador: pic-as (v2.30), MPLABX V5.45
-;
-; Programa: contador con pushbuttons
-; Hardware: LEDS en el puerto C, D, E, push en A
-;
-; Creado: 09 feb, 2021
+; Programa: display 7 segmentos que coincide con 4leds y una alarma
+; Hardware: 4 leds en el puerto C y un display 7 segmentos en D, alarme en E
+; con pushbuttons en A para los leds
+; Creado: 15 feb, 2021
 ; Ultima modificacion: 12 feb, 2021
 
 PROCESSOR 16F887
@@ -2459,11 +2458,13 @@ stk_offset SET 0
 auto_size SET 0
 ENDM
 # 7 "C:\\Program Files\\Microchip\\xc8\\v2.31\\pic\\include\\xc.inc" 2 3
-# 14 "Lab02_code.s" 2
+# 13 "main_t0.s" 2
 
-;--------------------------configuration bits-----------------------------------
+;*******************************************************************************
+; bits de configuracion
+;*******************************************************************************
     ; CONFIG1
-  CONFIG FOSC = XT ; Oscillator Selection bits (XT oscillator: Crystal/resonator on ((PORTA) and 07Fh), 6/OSC2/CLKOUT and ((PORTA) and 07Fh), 7/OSC1/CLKIN)
+  CONFIG FOSC = INTRC_NOCLKOUT ; Oscillator Selection bits (XT oscillator: Crystal/resonator on ((PORTA) and 07Fh), 6/OSC2/CLKOUT and ((PORTA) and 07Fh), 7/OSC1/CLKIN)
   CONFIG WDTE = OFF ; Watchdog Timer Enable bit (WDT disabled and can be enabled by ((WDTCON) and 07Fh), 0 bit of the WDTCON register)
   CONFIG PWRTE = ON ; Power-up Timer Enable bit (PWRT enabled)
   CONFIG MCLRE = OFF ; ((PORTE) and 07Fh), 3/MCLR pin function select bit (((PORTE) and 07Fh), 3/MCLR pin function is digital input, MCLR internally tied to VDD)
@@ -2474,177 +2475,160 @@ ENDM
   CONFIG FCMEN = OFF ; Fail-Safe Clock Monitor Enabled bit (Fail-Safe Clock Monitor is disabled)
   CONFIG LVP = ON ; Low Voltage Programming Enable bit (((PORTB) and 07Fh), 3/PGM pin has PGM function, low voltage programming enabled)
 
-    ; CONFIG2
+; CONFIG2
   CONFIG BOR4V = BOR40V ; Brown-out Reset Selection bit (Brown-out Reset set to 4.0V)
   CONFIG WRT = OFF ; Flash Program Memory Self Write Enable bits (Write protection off)
 
-PSECT udata_shr; common memory
-  cont1: DS 1; 1 byte
-  cont2: DS 1
-  cont_small: DS 1 ;1 byte
-  cont_big: DS 1
-  resultado: DS 1
-
+PSECT udata_shr ;Common memory
+ display_seven: DS 2 ;variable para incrementar display
+;*******************************************************************************
+; reset vector
+;*******************************************************************************
 PSECT resVect, class=code, abs, delta=2
-;--------------------------vector reset-----------------------------------------
-
 ORG 00h ;posicion 0000h para el reset
-resetVec:
-    PAGESEL main
-    goto main
+    resetVec:
+ PAGESEL main
+ goto main
+;*******************************************************************************
+; configuracion de pines
+;*******************************************************************************
+PSECT code, delta=2, abs
+ ORG 100h
+    tabla_disp:
+ CLRF PCLATH
+ BSF PCLATH, 0 ;PCLATH = 01 PCL =02
+ ANDLW 0x0f
+ ADDWF PCL ;PCL=PCLATH +PCL+W
+ RETLW 00111111B ;0
+ RETLW 00000110B ;1
+ RETLW 01011011B ;2
+ RETLW 01001111B ;3
+ RETLW 01100110B ;4
+ RETLW 01101101B ;5
+ RETLW 01111101B ;6
+ RETLW 00000111B ;7
+ RETLW 01111111B ;8
+ RETLW 01101111B ;9
+ RETLW 01110111B ;A
+ RETLW 01111100B ;B
+ RETLW 00111001B ;C
+ RETLW 01011110B ;D
+ RETLW 01111001B ;E
+ RETLW 01110001B ;F
 
 PSECT code, delta=2, abs
-ORG 100h ;posicion para el codigo
-
-;----------------------configuracion de los pines-------------------------------
-
-main:
-    ;entradas del puerto A
-    ;bcf STATUS, 5 ;banco00
-    ;bcf STATUS, 6
-    ;clrf PORTA
-    BANKSEL ANSEL
-    clrf ANSEL
+    ORG 114h
+  main:
+    BANKSEL ANSEL ;configuracion para que sean digitales
+    CLRF ANSEL
     BANKSEL ANSELH
-    clrf ANSELH ;puertos digitales
+    CLRF ANSELH
 
-    ;bsf STATUS, 5;banco01
-    ;bcf STATUS, 6
-    BANKSEL TRISA
-    bsf TRISA, 0 ;((PORTA) and 07Fh), 0 como input
-    bsf TRISA, 1 ;((PORTA) and 07Fh), 1 como input
-    bsf TRISA, 2 ;((PORTA) and 07Fh), 2 como input
-    bsf TRISA, 3 ;((PORTA) and 07Fh), 3 como input
-    bsf TRISA, 4 ;((PORTA) and 07Fh), 4 como input
-    bsf TRISA, 6 ;((PORTA) and 07Fh), 6 como input
-    bsf TRISA, 7 ;((PORTA) and 07Fh), 7 como input
+    BANKSEL TRISA ;configuracion de pines de entrada en pull-up
+    BSF TRISA, 0
+    BSF TRISA, 1
+    BSF TRISA, 6
+    BSF TRISA, 7
+    BANKSEL TRISB ;configuracion de pines de salida para contador led
+    BCF TRISB, 0
+    BCF TRISB, 1
+    BCF TRISB, 2
+    BCF TRISB, 3
+    BANKSEL TRISD ;configuracion de pines de display 7 segmentos
+    BCF TRISD, 0
+    BCF TRISD, 1
+    BCF TRISD, 2
+    BCF TRISD, 3
+    BCF TRISD, 4
+    BCF TRISD, 5
+    BCF TRISD, 6
+    BCF TRISD, 7
+    BANKSEL TRISE ;configuracion para led de alarma
+    BCF TRISE, 0
 
-    ;puerto B como salida
-    ;bcf STATUS, 5;banco00
-    ;bcf STATUS, 6
-    ;clrf PORTB
-    ;bsf STATUS, 5;banco01
-    ;bcf STATUS, 6
-    BANKSEL TRISB
-    bcf TRISB, 0
-    bcf TRISB, 1
-    bcf TRISB, 2
-    bcf TRISB, 3
+    BANKSEL PORTA ;limpiar puertos para iniciar el programa
+    CLRF PORTA
+    CLRF PORTB
+    CLRF PORTD
+    CLRF PORTE
 
-    ;salidas del puerto C
-    ;bcf STATUS, 5;banco00
-    ;bcf STATUS, 6
-    ;clrf PORTC
-    ;bsf STATUS, 5;banco01
-    ;bcf STATUS, 6
-    BANKSEL TRISC
-    bcf TRISC, 0 ;((PORTC) and 07Fh), 0 como salida
-    bcf TRISC, 1 ;((PORTC) and 07Fh), 1 como salida
-    bcf TRISC, 2 ;((PORTC) and 07Fh), 2 como salida
-    bcf TRISC, 3 ;((PORTC) and 07Fh), 3 como salida
+    BANKSEL OSCCON
+    BCF ((OSCCON) and 07Fh), 4
+    BSF ((OSCCON) and 07Fh), 5
+    BCF ((OSCCON) and 07Fh), 6
+    BSF ((OSCCON) and 07Fh), 0
 
-    ;salidas del puerto D
-    ;bcf STATUS, 5;banco00
-    ;bcf STATUS, 6
-    ;clrf PORTD
-    ;bsf STATUS, 5;banco01
-    ;bcf STATUS, 6
-    BANKSEL TRISD
-    bcf TRISD, 0 ;((PORTD) and 07Fh), 0 como salida
-    bcf TRISD, 1 ;((PORTD) and 07Fh), 1 como salida
-    bcf TRISD, 2 ;((PORTD) and 07Fh), 2 como salida
-    bcf TRISD, 3 ;((PORTD) and 07Fh), 3 como salida
-    bcf TRISD, 4 ;((PORTD) and 07Fh), 4 como salida
+    BANKSEL OPTION_REG
+    BCF ((OPTION_REG) and 07Fh), 5
+    BCF ((OPTION_REG) and 07Fh), 3
+    BSF ((OPTION_REG) and 07Fh), 0
+    BSF ((OPTION_REG) and 07Fh), 1
+    BSF ((OPTION_REG) and 07Fh), 2
 
-    ;BANKSEL TRISE
-    ;bcf TRISE, 0 ;((PORTE) and 07Fh), 0 como salida
-    ;regresar al banco 0 para operar
-    ;bcf STATUS, 5 ;banco00
-    ;bcf STATUS, 6
     BANKSEL PORTA
-    clrf PORTA
-    BANKSEL PORTB
-    clrf PORTB
-    BANKSEL PORTC
-    clrf PORTC
-    BANKSEL PORTD
-    clrf PORTD
-    ;BANKSEL PORTE
-    ;clrf PORTE
-    BANKSEL STATUS
-    clrf STATUS
-;----------------------------loop principal-------------------------------------
-    loop:
- btfss PORTA, 0 ;salta la instruccion si esta en 1 porque es pullup
- call debounce
- btfss PORTA, 1 ;esto replica lo mismo del anterior pero para el otro push
- call anti_dec
- btfss PORTA, 2 ;push tres que incrementa contador 2
- call debounce_2
- btfss PORTA, 3 ;push cuatro que decrementa contador 2
- call anti_dec_2
- btfss PORTA, 4 ;este es el push de la suma
- call debounce_suma
- goto loop
-
-;--------------------------sub-rutinas------------------------------------------
-
-   ;antirrebotes para incremento push1 y push3 respectivamente
-    debounce:
- call delay_big ;esto hace que espere para que se estabilice el ruido
- btfss PORTA, 0 ;verificar el pin ((PORTA) and 07Fh), 0
- goto $-1 ;se queda evaluando si esta en 1 no avanza hasta que cambia a 0
- incf PORTB, 1 ;guarda el resultado en el registro PORTB
- return
-
-    debounce_2:
- call delay_big ;esto hace que espere para que se estabilice el ruido
- btfss PORTA, 2 ;
- goto $-1 ;se queda evaluando si esta en 1 no avanza hasta que cambia a 0
- incf PORTC, 1
- return
-
-    ;antirrebotes para decrementos para push2 y push4 respectivamente
-    anti_dec:
- call delay_big
- btfss PORTA, 1
- goto $-1
- decf PORTB, 1 ;esto replica el antirrebote pero decrementa
- return
-
-    anti_dec_2:
- call delay_big
- btfss PORTA, 3
- goto $-1
- decf PORTC, 1 ;esto replica el antirrebote pero decrementa
- return
-
-    ;el puerto B tiene el contador 1 y el puerto C el contador 2
-    debounce_suma:
- call delay_big
- btfss PORTA, 4
- goto $-1
- movf PORTB, 0 ;esto hace que mueva el registro a W
- addwf PORTC, 0 ;suma w que tiene el puerto B y lo guarda en el registro PORTC mismo
- movwf PORTD ;mueve el resultado al puerto D
- return
+    CALL reiniciar
 
 
-    ;---------------delays que eliminan el ruido para los push------------------
+;*******************************************************************************
+; loop principal
+;*******************************************************************************
+    ;PSECT mainloop,class=code, delta=2, abs
 
-    delay_big:
- movlw 200 ;valor inicial del contador
- movwf cont_big
- call delay_small ;rutina de delay
- decfsz cont_big, 1 ;decrementar el contador
- goto $-2 ;ejecutar dos lineas atras
- return
+    mainloop:
+ BTFSS ((INTCON) and 07Fh), 2 ;revisa el overflow del timer0
+ GOTO $-1
+ CALL reiniciar ;borra el overflow del timer 0
+ INCF PORTB, 1 ;incrementa el puerto b y lo guarda en ese registro
+ CALL reiniciar ;pushes para incrementar el 7seg
+ BTFSS PORTA, 0 ;revisa el push 1 que incrementa
+ CALL incrementar_display
+ BTFSS PORTA, 1 ;push 2 para decrementar
+ CALL decrementar_display
+ BCF PORTE, 0
+ CALL alarma
+ GOTO mainloop
 
-    delay_small:
- movlw 249 ;valor inicial del contador
- movwf cont_small
- decfsz cont_small, 1 ;decrementar el contador
- goto $-1 ;ejecutar la linea anterior
- return
+;*******************************************************************************
+; subrutinas
+;*******************************************************************************
+    reiniciar:
+ BTFSS ((INTCON) and 07Fh), 2 ;revisa el overflow del timer0
+ MOVLW 134 ;para los 500ms con el clock 250kHz
+ MOVWF TMR0 ;mover este valor inicial al timer0
+ BCF ((INTCON) and 07Fh), 2 ;
+ RETURN
 
-end
+    incrementar_display:
+ BTFSS PORTA, 0
+ GOTO $-1
+ INCF display_seven
+ MOVF display_seven, W
+ CALL tabla_disp
+ MOVWF PORTD, 1
+ RETURN
+
+    decrementar_display:
+ BTFSS PORTA, 1
+ GOTO $-1
+ DECF display_seven
+ MOVF display_seven, W
+ CALL tabla_disp
+ MOVWF PORTD, 1
+ RETURN
+
+    alarma:
+ MOVF display_seven, 0
+ SUBWF PORTB, 0
+ BTFSC STATUS, 2
+ CALL led
+ RETURN
+
+    led:
+ BANKSEL PORTE
+ CLRF PORTE
+ BSF PORTE, 0
+ CLRF PORTB
+ RETURN
+
+
+END
