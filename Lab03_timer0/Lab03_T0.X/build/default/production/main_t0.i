@@ -2572,7 +2572,6 @@ PSECT code, delta=2, abs
 ;*******************************************************************************
 ; loop principal
 ;*******************************************************************************
-    ;PSECT mainloop,class=code, delta=2, abs
 
     mainloop:
  BTFSS ((INTCON) and 07Fh), 2 ;revisa el overflow del timer0

@@ -123,8 +123,7 @@ PSECT code, delta=2, abs
 ;*******************************************************************************
 ; loop principal
 ;*******************************************************************************
-    ;PSECT mainloop,class=code, delta=2, abs
-    
+   
     mainloop:
 	BTFSS	T0IF		;revisa el overflow del timer0
 	GOTO	$-1
