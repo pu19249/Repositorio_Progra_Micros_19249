@@ -105,15 +105,15 @@ main:
     CLRF    PORTE
     
     BANKSEL OSCCON
-    BCF	    IRCF0
+    BCF	    IRCF0	;el reloj interno 250kHz
     BSF	    IRCF1
     BCF	    IRCF2
     BSF	    SCS
      
     BANKSEL OPTION_REG
     BCF	    T0CS
-    BCF	    PSA
-    BSF	    PS0
+    BCF	    PSA		;prescaler asignado al timer0
+    BSF	    PS0		;prescaler tenga un valor 1:256
     BSF	    PS1
     BSF	    PS2
     
@@ -143,7 +143,7 @@ main:
 ; subrutinas
 ;*******************************************************************************
     reiniciar:
-	BTFSS	T0IF		;revisa el overflow del timer0
+	BTFSS	T0IF	;revisa el overflow del timer0
 	MOVLW	134     ;para los 500ms con el clock 250kHz
 	MOVWF   TMR0	;mover este valor inicial al timer0
 	BCF	T0IF	;
