@@ -34,27 +34,30 @@ PROCESSOR 16F887
 ;*******************************************************************************
 ; macros (para las interrupciones)
 ;*******************************************************************************
- int_contador macro
-    BTFSS   PORTB, 0
-    INCF    PORTA
-    BTFSS   PORTB, 1
-    DECF    PORTA
-    ENDM
+ ;int_contador macro	    ;instrucciones para inc y dec 4 leds
+  ;  BTFSS   PORTB, 0
+    ;INCF    PORTA
+   ; BTFSS   PORTB, 1
+    ;DECF    PORTA
+    ;ENDM
     
- reiniciar macro
-    BTFSS   T0IF	 ;revisa el overflow del timer0
-    MOVLW   134	         ;para los 500ms con el clock 250kHz
-    MOVWF   TMR0	 ;mover este valor inicial al timer0
-    BCF	    T0IF	 ;
-    ENDM    
+ ;reiniciar macro
+  ;  BTFSS   T0IF	 ;revisa el overflow del timer0
+   ; MOVLW   250	         ;para los 20ms con el clock 250kHz
+    ;MOVWF   TMR0	 ;mover este valor inicial al timer0
+    ;BCF	    T0IF	 ;
+    ;ENDM    
+    
+ 
 ;*******************************************************************************
 ; configuracion de variables
 ;*******************************************************************************
  
  PSECT udata_shr ;Common memory
     display_seven:	DS 2 ;variable para incrementar display
-    W_TEMP:	DS 1 ;variable para int y que guarde W
+    W_TEMP:		DS 1 ;variable para int y que guarde W
     STATUS_TEMP:	DS 1 ;variable para int y que guarde STATUS
+    contador:		DS 1
  
 ;*******************************************************************************
 ; interrupt vector
@@ -68,9 +71,11 @@ push:
     
 isr:
     BANKSEL PORTB
-    int_contador	    ;macro para inc y dec
-    BCF	    RBIF	    ;limpia el pin porque cambio de estado en la subrutina
-    
+    BTFSC   RBIF	    ;revisa si hubo interrupcion en el puerto B
+    CALL    int_contador    ;subrutina para inc y dec
+    BTFSC   T0IF	    ;revisa si hubo overflow en el timer0
+    CALL    int_tmr0	    ;subrutina timer0
+
 pop:
     SWAPF   STATUS_TEMP, W
     MOVWF   STATUS
@@ -138,9 +143,9 @@ main:
     BSF	    TRISB, 0
     BSF	    TRISB, 1
     BANKSEL OPTION_REG		
-    BCF	    OPTION_REG, 7	    ;PORTB pull-ups are enabled by individual PORT latch values
+    BCF	    OPTION_REG, 7   ;PORTB pull-ups are enabled by individual PORT latch values
     BANKSEL WPUB
-    BSF	    WPUB, 0		    ;hay que configurar todos de manera individual
+    BSF	    WPUB, 0	    ;hay que configurar todos de manera individual
     BSF	    WPUB, 1
     BCF	    WPUB, 2
     BCF	    WPUB, 3
@@ -151,15 +156,15 @@ main:
     
    ;configurar timer0
    BANKSEL OPTION_REG
-    BCF	    T0CS
-    BCF	    PSA		;prescaler asignado al timer0
-    BSF	    PS0		;prescaler tenga un valor 1:256
+    BCF	    T0CS	    ;oscilador interno
+    BCF	    PSA		    ;prescaler asignado al timer0
+    BSF	    PS0		    ;prescaler tenga un valor 1:256
     BSF	    PS1
     BSF	    PS2
     
     ;configurar reloj interno
     BANKSEL OSCCON
-    BCF	    IRCF0	;el reloj interno 250kHz
+    BCF	    IRCF0	    ;el reloj interno 250kHz
     BSF	    IRCF1
     BCF	    IRCF2
     BSF	    SCS
@@ -167,40 +172,72 @@ main:
     ;configurar interrupcion del puerto B
     BANKSEL IOCB
     MOVLW   00000011B	    ;habilita el interrupt on change para los pines RB0 y RB1
-    MOVWF   IOCB
-   ; BANKSEL INTCON	
-    ;MOVF    PORTB, 0
-    ;BSF	    RBIF	;no hay ningun cambio de estado aun*********************
+    MOVWF   IOCB    
+    BANKSEL INTCON	
+    BCF	    RBIF	    ;no hay ningun cambio de estado aun - como limpiar puertos
     
     ;configurar bits para interrupciones en general
-    BSF	    GIE	    ;habilita las interrupciones globales
-    BSF	    RBIE    ;habilita la interrupcion del puertoB
-    BSF	    T0IF    ;habilita la interrupcion del timer0
+    BSF	    GIE		    ;habilita las interrupciones globales
+    BSF	    RBIE	    ;habilita la interrupcion del puertoB
+    BSF	    T0IE	    ;habilita la interrupcion del timer0
+    BCF	    T0IF	    ;limpiar puerto para el timer0
     
     ;limpiar todos los puertos
     BANKSEL PORTA   
     CLRF    PORTA
+    CLRF    PORTB
     CLRF    PORTC
     CLRF    PORTD
-    CLRF    PORTB
-    
     
 ;*******************************************************************************
 ; loop principal
 ;*******************************************************************************
 main_loop:
+    CALL    mostrar
+    CALL    incrementar
+    MOVF    display_seven, W    ;para que funcione el 7seg se usa la variable para 'traducir' a hex
+    CALL    tabla_disp		
+    MOVWF   PORTD, 1
     
     GOTO    main_loop
     
 ;*******************************************************************************
 ; subrutinas de interrupcion
 ;*******************************************************************************
-/*int_contador:
+int_contador:
     BTFSS   PORTB, 0
     INCF    PORTA
     BTFSS   PORTB, 1
     DECF    PORTA
-    RETURN*/
+    BCF	    RBIF		;limpia el pin porque cambio de estado en la subrutina
+    RETURN
+ 
+mostrar:
+    MOVF    PORTA, 0		;esto muestra lo de los cuatro leds en el display
+    CALL    tabla_disp
+    MOVWF   PORTC, 1
+    RETURN
     
+int_tmr0:
+    INCF    contador		;incrementa mi variable interna para que sea haga 1s
+    CALL    reiniciar		;reinicia mi timer 0 por el overflow
+    RETURN			;regresa al main loop que me llama a mi tabla
+      
+
+incrementar:
+    MOVLW   50			;quiero que se repita 50 veces
+    SUBWF   contador, 0		;resto lo que tengo en el contador con w
+    BTFSS   STATUS, 2		;bandera zero del status
+    RETURN			;regreso cuando se levanta
+    INCF    display_seven	;incremento mi variable que me traduce para mis 7seg
+    CLRF    contador		;reinicio la variable del contador interno
+    RETURN
+    
+    
+reiniciar:
+    MOVLW	250     ;para los 20ms con el clock 250kHz
+    MOVWF	TMR0	;mover este valor inicial al timer0
+    BCF		T0IF	;
+    RETURN
     
 END
