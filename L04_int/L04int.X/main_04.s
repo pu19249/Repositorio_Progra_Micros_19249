@@ -5,7 +5,7 @@
 ; Programa: contador de 4 leds y display con int de B y un 7seg con int de Tmr0
 ; Hardware: 2 pb en puerto b, 4 leds en portA, 7seg en puerto C y D
 ; Creado: 21 feb, 2021
-; Ultima modificacion: _______ feb, 2021
+; Ultima modificacion: 24 feb, 2021
     
 PROCESSOR 16F887
 #include <xc.inc>
