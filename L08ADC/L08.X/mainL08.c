@@ -200,8 +200,8 @@ void display2(void){
     transistores = 0b00000010;
     //PORTEbits.RE0 = 0;
     PORTEbits.RE1 = 1;
-    return;
-}
+    return;}
+
 
 void display3(void){
     
