@@ -33,7 +33,7 @@ idataBANK0 CODE 0 1EF 1EF 10 2
 dataBANK0 BANK0 1 20 20 10 1
 bssCOMMON COMMON 1 75 75 3 1
 config CONFIG 4 2007 2007 2 2
-$C:\Users\jpu20\AppData\Local\Temp\s4jo.o
+$C:\Users\jpu20\AppData\Local\Temp\s8qo.o
 reset_vec CODE 0 0 0 3 2
 end_init CODE 0 E E 3 2
 config CONFIG 4 2007 2007 2 2
@@ -83,24 +83,24 @@ STRING 228-1FFF 2
 # All other numeric values are in decimal.
 %LINETAB
 $dist/default/production\L07.X.production.o
-11 cinit CODE >527:C:\Users\jpu20\AppData\Local\Temp\s4jo.s
-11 cinit CODE >530:C:\Users\jpu20\AppData\Local\Temp\s4jo.s
-11 cinit CODE >583:C:\Users\jpu20\AppData\Local\Temp\s4jo.s
-12 cinit CODE >584:C:\Users\jpu20\AppData\Local\Temp\s4jo.s
-13 cinit CODE >585:C:\Users\jpu20\AppData\Local\Temp\s4jo.s
-14 cinit CODE >586:C:\Users\jpu20\AppData\Local\Temp\s4jo.s
-15 cinit CODE >587:C:\Users\jpu20\AppData\Local\Temp\s4jo.s
-16 cinit CODE >588:C:\Users\jpu20\AppData\Local\Temp\s4jo.s
-17 cinit CODE >589:C:\Users\jpu20\AppData\Local\Temp\s4jo.s
-18 cinit CODE >590:C:\Users\jpu20\AppData\Local\Temp\s4jo.s
-19 cinit CODE >591:C:\Users\jpu20\AppData\Local\Temp\s4jo.s
-1A cinit CODE >592:C:\Users\jpu20\AppData\Local\Temp\s4jo.s
-1F cinit CODE >596:C:\Users\jpu20\AppData\Local\Temp\s4jo.s
-20 cinit CODE >597:C:\Users\jpu20\AppData\Local\Temp\s4jo.s
-21 cinit CODE >598:C:\Users\jpu20\AppData\Local\Temp\s4jo.s
-22 cinit CODE >604:C:\Users\jpu20\AppData\Local\Temp\s4jo.s
-22 cinit CODE >606:C:\Users\jpu20\AppData\Local\Temp\s4jo.s
-23 cinit CODE >607:C:\Users\jpu20\AppData\Local\Temp\s4jo.s
+11 cinit CODE >527:C:\Users\jpu20\AppData\Local\Temp\s8qo.s
+11 cinit CODE >530:C:\Users\jpu20\AppData\Local\Temp\s8qo.s
+11 cinit CODE >583:C:\Users\jpu20\AppData\Local\Temp\s8qo.s
+12 cinit CODE >584:C:\Users\jpu20\AppData\Local\Temp\s8qo.s
+13 cinit CODE >585:C:\Users\jpu20\AppData\Local\Temp\s8qo.s
+14 cinit CODE >586:C:\Users\jpu20\AppData\Local\Temp\s8qo.s
+15 cinit CODE >587:C:\Users\jpu20\AppData\Local\Temp\s8qo.s
+16 cinit CODE >588:C:\Users\jpu20\AppData\Local\Temp\s8qo.s
+17 cinit CODE >589:C:\Users\jpu20\AppData\Local\Temp\s8qo.s
+18 cinit CODE >590:C:\Users\jpu20\AppData\Local\Temp\s8qo.s
+19 cinit CODE >591:C:\Users\jpu20\AppData\Local\Temp\s8qo.s
+1A cinit CODE >592:C:\Users\jpu20\AppData\Local\Temp\s8qo.s
+1F cinit CODE >596:C:\Users\jpu20\AppData\Local\Temp\s8qo.s
+20 cinit CODE >597:C:\Users\jpu20\AppData\Local\Temp\s8qo.s
+21 cinit CODE >598:C:\Users\jpu20\AppData\Local\Temp\s8qo.s
+22 cinit CODE >604:C:\Users\jpu20\AppData\Local\Temp\s8qo.s
+22 cinit CODE >606:C:\Users\jpu20\AppData\Local\Temp\s8qo.s
+23 cinit CODE >607:C:\Users\jpu20\AppData\Local\Temp\s8qo.s
 4 intentry CODE >64:C:\Users\jpu20\Documents\GitHub\Repositorio_Micros_19249\Micros\L07\L07.X\main_L07.c
 20E text9 CODE >167:C:\Users\jpu20\Documents\GitHub\Repositorio_Micros_19249\Micros\L07\L07.X\main_L07.c
 20E text9 CODE >168:C:\Users\jpu20\Documents\GitHub\Repositorio_Micros_19249\Micros\L07\L07.X\main_L07.c
@@ -234,23 +234,23 @@ EA text2 CODE >199:C:\Users\jpu20\Documents\GitHub\Repositorio_Micros_19249\Micr
 1C7 maintext CODE >96:C:\Users\jpu20\Documents\GitHub\Repositorio_Micros_19249\Micros\L07\L07.X\main_L07.c
 1CC maintext CODE >98:C:\Users\jpu20\Documents\GitHub\Repositorio_Micros_19249\Micros\L07\L07.X\main_L07.c
 1D2 maintext CODE >99:C:\Users\jpu20\Documents\GitHub\Repositorio_Micros_19249\Micros\L07\L07.X\main_L07.c
-1DC inittext CODE >557:C:\Users\jpu20\AppData\Local\Temp\s4jo.s
-1DC inittext CODE >558:C:\Users\jpu20\AppData\Local\Temp\s4jo.s
-1DD inittext CODE >559:C:\Users\jpu20\AppData\Local\Temp\s4jo.s
-1DE inittext CODE >560:C:\Users\jpu20\AppData\Local\Temp\s4jo.s
-1DF inittext CODE >561:C:\Users\jpu20\AppData\Local\Temp\s4jo.s
-1E0 inittext CODE >568:C:\Users\jpu20\AppData\Local\Temp\s4jo.s
-1E0 inittext CODE >569:C:\Users\jpu20\AppData\Local\Temp\s4jo.s
-1E5 inittext CODE >570:C:\Users\jpu20\AppData\Local\Temp\s4jo.s
-1E6 inittext CODE >571:C:\Users\jpu20\AppData\Local\Temp\s4jo.s
-1E7 inittext CODE >572:C:\Users\jpu20\AppData\Local\Temp\s4jo.s
-1E8 inittext CODE >573:C:\Users\jpu20\AppData\Local\Temp\s4jo.s
-1E9 inittext CODE >574:C:\Users\jpu20\AppData\Local\Temp\s4jo.s
-1EA inittext CODE >575:C:\Users\jpu20\AppData\Local\Temp\s4jo.s
-1EB inittext CODE >576:C:\Users\jpu20\AppData\Local\Temp\s4jo.s
-1EC inittext CODE >577:C:\Users\jpu20\AppData\Local\Temp\s4jo.s
-1ED inittext CODE >578:C:\Users\jpu20\AppData\Local\Temp\s4jo.s
-1EE inittext CODE >579:C:\Users\jpu20\AppData\Local\Temp\s4jo.s
+1DC inittext CODE >557:C:\Users\jpu20\AppData\Local\Temp\s8qo.s
+1DC inittext CODE >558:C:\Users\jpu20\AppData\Local\Temp\s8qo.s
+1DD inittext CODE >559:C:\Users\jpu20\AppData\Local\Temp\s8qo.s
+1DE inittext CODE >560:C:\Users\jpu20\AppData\Local\Temp\s8qo.s
+1DF inittext CODE >561:C:\Users\jpu20\AppData\Local\Temp\s8qo.s
+1E0 inittext CODE >568:C:\Users\jpu20\AppData\Local\Temp\s8qo.s
+1E0 inittext CODE >569:C:\Users\jpu20\AppData\Local\Temp\s8qo.s
+1E5 inittext CODE >570:C:\Users\jpu20\AppData\Local\Temp\s8qo.s
+1E6 inittext CODE >571:C:\Users\jpu20\AppData\Local\Temp\s8qo.s
+1E7 inittext CODE >572:C:\Users\jpu20\AppData\Local\Temp\s8qo.s
+1E8 inittext CODE >573:C:\Users\jpu20\AppData\Local\Temp\s8qo.s
+1E9 inittext CODE >574:C:\Users\jpu20\AppData\Local\Temp\s8qo.s
+1EA inittext CODE >575:C:\Users\jpu20\AppData\Local\Temp\s8qo.s
+1EB inittext CODE >576:C:\Users\jpu20\AppData\Local\Temp\s8qo.s
+1EC inittext CODE >577:C:\Users\jpu20\AppData\Local\Temp\s8qo.s
+1ED inittext CODE >578:C:\Users\jpu20\AppData\Local\Temp\s8qo.s
+1EE inittext CODE >579:C:\Users\jpu20\AppData\Local\Temp\s8qo.s
 # %SYMTAB Section
 # An enumeration of all symbols in the program.
 # The beginning of the section is indicated by %SYMTAB.
@@ -278,10 +278,10 @@ __Hstrings 0 0 ABS 0 strings -
 _RBIF 58 0 ABS 0 - dist/default/production\L07.X.production.o
 _T0IF 5A 0 ABS 0 - dist/default/production\L07.X.production.o
 _TMR0 1 0 ABS 0 - dist/default/production\L07.X.production.o
-___sp 0 0 STACK 2 stack C:\Users\jpu20\AppData\Local\Temp\s4jo.o
+___sp 0 0 STACK 2 stack C:\Users\jpu20\AppData\Local\Temp\s8qo.o
 _main 38E 0 CODE 0 maintext dist/default/production\L07.X.production.o
 btemp 7E 0 ABS 0 - dist/default/production\L07.X.production.o
-start 1C 0 CODE 0 init C:\Users\jpu20\AppData\Local\Temp\s4jo.o
+start 1C 0 CODE 0 init C:\Users\jpu20\AppData\Local\Temp\s8qo.o
 __size_of___awdiv 0 0 ABS 0 - dist/default/production\L07.X.production.o
 __size_of___awmod 0 0 ABS 0 - dist/default/production\L07.X.production.o
 __size_of_main 0 0 ABS 0 - dist/default/production\L07.X.production.o
@@ -294,12 +294,12 @@ _display2 3FE 0 CODE 0 text8 dist/default/production\L07.X.production.o
 _display3 438 0 CODE 0 text7 dist/default/production\L07.X.production.o
 ___awmod@sign 36 0 BANK0 1 cstackBANK0 dist/default/production\L07.X.production.o
 __LnvCOMMON 0 0 ABS 0 nvCOMMON -
-intlevel0 0 0 ENTRY 0 functab C:\Users\jpu20\AppData\Local\Temp\s4jo.o
-intlevel1 0 0 ENTRY 0 functab C:\Users\jpu20\AppData\Local\Temp\s4jo.o
-intlevel2 0 0 ENTRY 0 functab C:\Users\jpu20\AppData\Local\Temp\s4jo.o
-intlevel3 0 0 ENTRY 0 functab C:\Users\jpu20\AppData\Local\Temp\s4jo.o
-intlevel4 0 0 ENTRY 0 functab C:\Users\jpu20\AppData\Local\Temp\s4jo.o
-intlevel5 0 0 ENTRY 0 functab C:\Users\jpu20\AppData\Local\Temp\s4jo.o
+intlevel0 0 0 ENTRY 0 functab C:\Users\jpu20\AppData\Local\Temp\s8qo.o
+intlevel1 0 0 ENTRY 0 functab C:\Users\jpu20\AppData\Local\Temp\s8qo.o
+intlevel2 0 0 ENTRY 0 functab C:\Users\jpu20\AppData\Local\Temp\s8qo.o
+intlevel3 0 0 ENTRY 0 functab C:\Users\jpu20\AppData\Local\Temp\s8qo.o
+intlevel4 0 0 ENTRY 0 functab C:\Users\jpu20\AppData\Local\Temp\s8qo.o
+intlevel5 0 0 ENTRY 0 functab C:\Users\jpu20\AppData\Local\Temp\s8qo.o
 __LbssCOMMON 0 0 ABS 0 bssCOMMON -
 _division 11E 0 CODE 0 text2 dist/default/production\L07.X.production.o
 __end_of_display1 438 0 CODE 0 text9 dist/default/production\L07.X.production.o
@@ -321,15 +321,15 @@ __LnvBANK0 0 0 ABS 0 nvBANK0 -
 ___awdiv@divisor 30 0 BANK0 1 cstackBANK0 dist/default/production\L07.X.production.o
 __end_of___awdiv 11E 0 CODE 0 text4 dist/default/production\L07.X.production.o
 __end_of___awmod 28C 0 CODE 0 text3 dist/default/production\L07.X.production.o
-___stackhi 0 0 ABS 0 - C:\Users\jpu20\AppData\Local\Temp\s4jo.o
-___stacklo 0 0 ABS 0 - C:\Users\jpu20\AppData\Local\Temp\s4jo.o
+___stackhi 0 0 ABS 0 - C:\Users\jpu20\AppData\Local\Temp\s8qo.o
+___stacklo 0 0 ABS 0 - C:\Users\jpu20\AppData\Local\Temp\s8qo.o
 __size_of_setup 0 0 ABS 0 - dist/default/production\L07.X.production.o
 __HnvCOMMON 0 0 ABS 0 nvCOMMON -
 start_initialization 22 0 CODE 0 cinit dist/default/production\L07.X.production.o
 _TRISBbits 86 0 ABS 0 - dist/default/production\L07.X.production.o
 __pcstackBANK0 30 0 BANK0 1 cstackBANK0 dist/default/production\L07.X.production.o
 _residuo 78 0 COMMON 1 nvCOMMON dist/default/production\L07.X.production.o
-___int_sp 0 0 STACK 2 stack C:\Users\jpu20\AppData\Local\Temp\s4jo.o
+___int_sp 0 0 STACK 2 stack C:\Users\jpu20\AppData\Local\Temp\s8qo.o
 __Hbank0 0 0 ABS 0 bank0 -
 __Hbank1 0 0 ABS 0 bank1 -
 __Hbank2 0 0 ABS 0 bank2 -
@@ -378,7 +378,7 @@ saved_w 7E 0 ABS 0 - dist/default/production\L07.X.production.o
 __end_of_isr 2F2 0 CODE 0 text5 dist/default/production\L07.X.production.o
 __HnvBANK0 0 0 ABS 0 nvBANK0 -
 __Lintentry 8 0 CODE 0 intentry -
-reset_vec 0 0 CODE 0 reset_vec C:\Users\jpu20\AppData\Local\Temp\s4jo.o
+reset_vec 0 0 CODE 0 reset_vec C:\Users\jpu20\AppData\Local\Temp\s8qo.o
 __pdataBANK0 20 0 BANK0 1 dataBANK0 dist/default/production\L07.X.production.o
 ___awmod@counter 35 0 BANK0 1 cstackBANK0 dist/default/production\L07.X.production.o
 ___awdiv 4C 0 CODE 0 text4 dist/default/production\L07.X.production.o
