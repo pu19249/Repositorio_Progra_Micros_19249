@@ -54,11 +54,11 @@ void setup(void);
 void __interrupt() isr(void){
     if (ADIF == 1){
         if (ADCON0bits.CHS == 0){
-            CCPR1L = (ADRESH>>1)+124;
+            CCPR1L = (ADRESH>>1)+124;  //para que tome el rango desde el centro
             CCP1CONbits.DC1B1 = ADRESH & 0b01; //toma uno de los b que falta
             CCP1CONbits.DC1B0 = ADRESL>>7; //para el otro bit
         }
-        else{
+        else{ //el otro canal de PWM
             CCPR2L = (ADRESH>>1)+124;
             CCP2CONbits.DC2B1 = ADRESH & 0b01;
             CCP2CONbits.DC2B0 = ADRESL>>7;
