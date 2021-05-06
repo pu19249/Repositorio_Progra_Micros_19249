@@ -9,7 +9,7 @@
 
 #include <xc.h>
 #include <stdint.h>
-#include <stdio.h> //libreria para mandar str en comunicacion serial
+#include <stdio.h>
 #define _XTAL_FREQ 8000000
 /*=============================================================================
                         BITS DE CONFIGURACION
@@ -44,22 +44,26 @@
 /*==============================================================================
                                 VARIABLES
  =============================================================================*/
-char puerto_a, puerto_b;
+//const char data = 97;
+//char texto_enviado[];
 /*==============================================================================
                                INTERRUPCIONES Y PROTOTIPOS
  =============================================================================*/
-void setup(void);
-void putch(char data); //funcion para recibir el dato que se desea transmitir
-void mensaje(void);
+void setup_2(void);
+void enviar_texto(char texto[]);
+void putch(char data);
+
+
 
 /*==============================================================================
                                 LOOP PRINCIPAL
  =============================================================================*/
-void main(void){
+void main_2(void){
     setup();
     
     while (1){
-        mensaje();
+        printf("hola");
+        
         
     }
 }
@@ -68,39 +72,8 @@ void main(void){
                                     FUNCIONES
  =============================================================================*/
 void putch(char data){
-    while(TXIF == 0);
-    TXREG = data;
-    return;
-}
-
-void mensaje(void){
-    __delay_ms(500);
-    printf("\r Que accion desea ejecutar \r");
-    __delay_ms(250);
-    printf("(1) Desplegar cadena de caracteres \r");
-    __delay_ms(250);
-    printf("(2) Cambiar PORTA \r");
-    __delay_ms(250);
-    printf("(3) Cambiar PORTB \r");
-    while (RCIF == 0);
-    if (RCREG == '1'){
-        __delay_ms(500);
-        printf("\r Usted puede leer este mensaje \r");
-    }
-    if (RCREG == '2'){
-        printf("\r Presione el caracter para desplegar en PORTA: \r");
-        while (RCIF == 0);
-        puerto_a = RCREG; //para recibir un caracter
-        PORTA = puerto_a;
-    }
-    if (RCREG == '3'){
-        printf("\r Presione el caracter para desplegar en PORTB: \r");
-        while (RCIF == 0);
-        puerto_b = RCREG;
-        PORTB = puerto_b;
-    }
-    else{
-        NULL;
+    while(TXSTAbits.TRMT == 1){
+        TXREG = data;
     }
     return;
 }
@@ -108,7 +81,7 @@ void mensaje(void){
                             CONFIGURACION DE PIC
  =============================================================================*/
 
-void setup (void){
+void setup_2 (void){
     //salida en el puerto B del valor ascii
     TRISA = 0x00;
     TRISB = 0x00;
@@ -135,10 +108,10 @@ void setup (void){
     TXSTAbits.TXEN = 1; //enable the transmission
     RCSTAbits.RX9 = 0; //recepcion de 8 bits
       
-    //PIE1bits.TXIE = 1; //porque quiero las interrupciones de la transmision
+    PIE1bits.TXIE = 1; //porque quiero las interrupciones de la transmision
     INTCONbits.GIE = 1; //enable de global interrupts
     INTCONbits.PEIE = 1;
-    //PIE1bits.RCIE = 1; //interrupciones del receptor
+    PIE1bits.RCIE = 1; //interrupciones del receptor
     PIR1bits.TXIF = 0;  //limpiar interrupciones
     PIR1bits.RCIF = 0;
     

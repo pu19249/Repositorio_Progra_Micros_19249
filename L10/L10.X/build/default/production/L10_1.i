@@ -2625,6 +2625,105 @@ typedef int16_t intptr_t;
 typedef uint16_t uintptr_t;
 # 11 "L10_1.c" 2
 
+# 1 "C:\\Program Files\\Microchip\\xc8\\v2.31\\pic\\include\\c90\\stdio.h" 1 3
+
+
+
+# 1 "C:/Program Files/Microchip/MPLABX/v5.45/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\\pic\\include\\__size_t.h" 1 3
+
+
+
+typedef unsigned size_t;
+# 4 "C:\\Program Files\\Microchip\\xc8\\v2.31\\pic\\include\\c90\\stdio.h" 2 3
+
+# 1 "C:/Program Files/Microchip/MPLABX/v5.45/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\\pic\\include\\__null.h" 1 3
+# 5 "C:\\Program Files\\Microchip\\xc8\\v2.31\\pic\\include\\c90\\stdio.h" 2 3
+
+
+
+
+
+
+# 1 "C:\\Program Files\\Microchip\\xc8\\v2.31\\pic\\include\\c90\\stdarg.h" 1 3
+
+
+
+
+
+
+typedef void * va_list[1];
+
+#pragma intrinsic(__va_start)
+extern void * __va_start(void);
+
+#pragma intrinsic(__va_arg)
+extern void * __va_arg(void *, ...);
+# 11 "C:\\Program Files\\Microchip\\xc8\\v2.31\\pic\\include\\c90\\stdio.h" 2 3
+# 43 "C:\\Program Files\\Microchip\\xc8\\v2.31\\pic\\include\\c90\\stdio.h" 3
+struct __prbuf
+{
+ char * ptr;
+ void (* func)(char);
+};
+# 85 "C:\\Program Files\\Microchip\\xc8\\v2.31\\pic\\include\\c90\\stdio.h" 3
+# 1 "C:\\Program Files\\Microchip\\xc8\\v2.31\\pic\\include\\c90\\conio.h" 1 3
+
+
+
+
+
+
+
+# 1 "C:\\Program Files\\Microchip\\xc8\\v2.31\\pic\\include\\c90\\errno.h" 1 3
+# 29 "C:\\Program Files\\Microchip\\xc8\\v2.31\\pic\\include\\c90\\errno.h" 3
+extern int errno;
+# 8 "C:\\Program Files\\Microchip\\xc8\\v2.31\\pic\\include\\c90\\conio.h" 2 3
+
+
+
+
+extern void init_uart(void);
+
+extern char getch(void);
+extern char getche(void);
+extern void putch(char);
+extern void ungetch(char);
+
+extern __bit kbhit(void);
+
+
+
+extern char * cgets(char *);
+extern void cputs(const char *);
+# 85 "C:\\Program Files\\Microchip\\xc8\\v2.31\\pic\\include\\c90\\stdio.h" 2 3
+
+
+
+extern int cprintf(char *, ...);
+#pragma printf_check(cprintf)
+
+
+
+extern int _doprnt(struct __prbuf *, const register char *, register va_list);
+# 180 "C:\\Program Files\\Microchip\\xc8\\v2.31\\pic\\include\\c90\\stdio.h" 3
+#pragma printf_check(vprintf) const
+#pragma printf_check(vsprintf) const
+
+extern char * gets(char *);
+extern int puts(const char *);
+extern int scanf(const char *, ...) __attribute__((unsupported("scanf() is not supported by this compiler")));
+extern int sscanf(const char *, const char *, ...) __attribute__((unsupported("sscanf() is not supported by this compiler")));
+extern int vprintf(const char *, va_list) __attribute__((unsupported("vprintf() is not supported by this compiler")));
+extern int vsprintf(char *, const char *, va_list) __attribute__((unsupported("vsprintf() is not supported by this compiler")));
+extern int vscanf(const char *, va_list ap) __attribute__((unsupported("vscanf() is not supported by this compiler")));
+extern int vsscanf(const char *, const char *, va_list) __attribute__((unsupported("vsscanf() is not supported by this compiler")));
+
+#pragma printf_check(printf) const
+#pragma printf_check(sprintf) const
+extern int sprintf(char *, const char *, ...);
+extern int printf(const char *, ...);
+# 12 "L10_1.c" 2
+
 
 
 
@@ -2659,22 +2758,13 @@ typedef uint16_t uintptr_t;
 
 
 
-const char data = 97;
-
+char puerto_a, puerto_b;
 
 
 
 void setup(void);
-
-void __attribute__((picinterrupt(("")))) isr(void){
-    _delay((unsigned long)((100)*(8000000/4000000.0)));
-    if (PIR1bits.RCIF == 1){
-        PORTB = RCREG;
-    }
-    if (PIR1bits.TXIF == 1){
-        TXREG = data;
-    }
-}
+void putch(char data);
+void mensaje(void);
 
 
 
@@ -2683,15 +2773,58 @@ void main(void){
     setup();
 
     while (1){
+        mensaje();
 
-
-        }
-
-        return;
     }
-# 86 "L10_1.c"
+}
+
+
+
+
+void putch(char data){
+    while(TXIF == 0);
+    TXREG = data;
+    return;
+}
+
+void mensaje(void){
+    _delay((unsigned long)((500)*(8000000/4000.0)));
+    printf("\r Que accion desea ejecutar \r");
+    _delay((unsigned long)((250)*(8000000/4000.0)));
+    printf("(1) Desplegar cadena de caracteres \r");
+    _delay((unsigned long)((250)*(8000000/4000.0)));
+    printf("(2) Cambiar PORTA \r");
+    _delay((unsigned long)((250)*(8000000/4000.0)));
+    printf("(3) Cambiar PORTB \r");
+    while (RCIF == 0);
+    if (RCREG == '1'){
+        _delay((unsigned long)((500)*(8000000/4000.0)));
+        printf("\r Usted puede leer este mensaje \r");
+    }
+    if (RCREG == '2'){
+        printf("\r Presione el caracter para desplegar en PORTA: \r");
+        while (RCIF == 0);
+        puerto_a = RCREG;
+        PORTA = puerto_a;
+    }
+    if (RCREG == '3'){
+        printf("\r Presione el caracter para desplegar en PORTB: \r");
+        while (RCIF == 0);
+        puerto_b = RCREG;
+        PORTB = puerto_b;
+    }
+    else{
+        (0);
+    }
+    return;
+}
+
+
+
+
 void setup (void){
 
+    TRISA = 0x00;
     TRISB = 0x00;
     ANSELH = 0x00;
 
@@ -2716,14 +2849,14 @@ void setup (void){
     TXSTAbits.TXEN = 1;
     RCSTAbits.RX9 = 0;
 
-    PIE1bits.TXIE = 1;
+
     INTCONbits.GIE = 1;
     INTCONbits.PEIE = 1;
-    PIE1bits.RCIE = 1;
+
     PIR1bits.TXIF = 0;
     PIR1bits.RCIF = 0;
 
 
+    PORTA = 0x00;
     PORTB = 0x00;
-
 }

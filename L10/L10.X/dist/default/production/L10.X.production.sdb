@@ -3,6 +3,8 @@
 [d edition pro ]
 [d chip 16F887 ]
 [d frameptr 0 ]
+"477 C:\Program Files\Microchip\xc8\v2.31\pic\sources\c90\common\doprnt.c
+[v _printf printf `(i  1 e 2 0 ]
 "10 C:\Program Files\Microchip\xc8\v2.31\pic\sources\c90\common\sprcadd.c
 [v ___fladd __fladd `(d  1 e 4 0 ]
 "4 C:\Program Files\Microchip\xc8\v2.31\pic\sources\c90\common\Umul8_16.c
@@ -11,15 +13,19 @@
 [v ___eecpymem __eecpymem `(v  1 e 1 0 ]
 "39
 [v ___memcpyee __memcpyee `(v  1 e 1 0 ]
-"53 C:\Users\jpu20\Documents\GitHub\Repositorio_Micros_19249\Micros\L10\L10.X\L10_1.c
-[v _isr isr `II(v  1 e 1 0 ]
-"66
+"58 C:\Users\jpu20\Documents\GitHub\Repositorio_Micros_19249\Micros\L10\L10.X\L10_1.c
 [v _main main `(v  1 e 1 0 ]
-"86
+"70
+[v _putch putch `(v  1 e 1 0 ]
+"76
+[v _mensaje mensaje `(v  1 e 1 0 ]
+"111
 [v _setup setup `(v  1 e 1 0 ]
-"228 C:/Program Files/Microchip/MPLABX/v5.45/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\pic\include\proc\pic16f887.h
+"166 C:/Program Files/Microchip/MPLABX/v5.45/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\pic\include\proc\pic16f887.h
+[v _PORTA PORTA `VEuc  1 e 1 @5 ]
+"228
 [v _PORTB PORTB `VEuc  1 e 1 @6 ]
-[s S205 . 1 `uc 1 RBIF 1 0 :1:0 
+[s S180 . 1 `uc 1 RBIF 1 0 :1:0 
 `uc 1 INTF 1 0 :1:1 
 `uc 1 T0IF 1 0 :1:2 
 `uc 1 RBIE 1 0 :1:3 
@@ -29,14 +35,14 @@
 `uc 1 GIE 1 0 :1:7 
 ]
 "482
-[s S214 . 1 `uc 1 . 1 0 :2:0 
+[s S189 . 1 `uc 1 . 1 0 :2:0 
 `uc 1 TMR0IF 1 0 :1:2 
 `uc 1 . 1 0 :2:3 
 `uc 1 TMR0IE 1 0 :1:5 
 ]
-[u S219 . 1 `S205 1 . 1 0 `S214 1 . 1 0 ]
-[v _INTCONbits INTCONbits `VES219  1 e 1 @11 ]
-[s S28 . 1 `uc 1 TMR1IF 1 0 :1:0 
+[u S194 . 1 `S180 1 . 1 0 `S189 1 . 1 0 ]
+[v _INTCONbits INTCONbits `VES194  1 e 1 @11 ]
+[s S212 . 1 `uc 1 TMR1IF 1 0 :1:0 
 `uc 1 TMR2IF 1 0 :1:1 
 `uc 1 CCP1IF 1 0 :1:2 
 `uc 1 SSPIF 1 0 :1:3 
@@ -45,9 +51,9 @@
 `uc 1 ADIF 1 0 :1:6 
 ]
 "553
-[u S36 . 1 `S28 1 . 1 0 ]
-[v _PIR1bits PIR1bits `VES36  1 e 1 @12 ]
-[s S142 . 1 `uc 1 RX9D 1 0 :1:0 
+[u S220 . 1 `S212 1 . 1 0 ]
+[v _PIR1bits PIR1bits `VES220  1 e 1 @12 ]
+[s S136 . 1 `uc 1 RX9D 1 0 :1:0 
 `uc 1 OERR 1 0 :1:1 
 `uc 1 FERR 1 0 :1:2 
 `uc 1 ADDEN 1 0 :1:3 
@@ -57,50 +63,41 @@
 `uc 1 SPEN 1 0 :1:7 
 ]
 "1068
-[s S151 . 1 `uc 1 RCD8 1 0 :1:0 
+[s S145 . 1 `uc 1 RCD8 1 0 :1:0 
 `uc 1 . 1 0 :5:1 
 `uc 1 RC9 1 0 :1:6 
 ]
-[s S155 . 1 `uc 1 . 1 0 :6:0 
+[s S149 . 1 `uc 1 . 1 0 :6:0 
 `uc 1 nRC8 1 0 :1:6 
 ]
-[s S158 . 1 `uc 1 . 1 0 :6:0 
+[s S152 . 1 `uc 1 . 1 0 :6:0 
 `uc 1 RC8_9 1 0 :1:6 
 ]
-[u S161 . 1 `S142 1 . 1 0 `S151 1 . 1 0 `S155 1 . 1 0 `S158 1 . 1 0 ]
-[v _RCSTAbits RCSTAbits `VES161  1 e 1 @24 ]
+[u S155 . 1 `S136 1 . 1 0 `S145 1 . 1 0 `S149 1 . 1 0 `S152 1 . 1 0 ]
+[v _RCSTAbits RCSTAbits `VES155  1 e 1 @24 ]
 "1133
 [v _TXREG TXREG `VEuc  1 e 1 @25 ]
 "1140
 [v _RCREG RCREG `VEuc  1 e 1 @26 ]
+"1416
+[v _TRISA TRISA `VEuc  1 e 1 @133 ]
 "1478
 [v _TRISB TRISB `VEuc  1 e 1 @134 ]
-[s S186 . 1 `uc 1 TMR1IE 1 0 :1:0 
-`uc 1 TMR2IE 1 0 :1:1 
-`uc 1 CCP1IE 1 0 :1:2 
-`uc 1 SSPIE 1 0 :1:3 
-`uc 1 TXIE 1 0 :1:4 
-`uc 1 RCIE 1 0 :1:5 
-`uc 1 ADIE 1 0 :1:6 
-]
-"1718
-[u S194 . 1 `S186 1 . 1 0 ]
-[v _PIE1bits PIE1bits `VES194  1 e 1 @140 ]
-[s S56 . 1 `uc 1 SCS 1 0 :1:0 
+[s S50 . 1 `uc 1 SCS 1 0 :1:0 
 `uc 1 LTS 1 0 :1:1 
 `uc 1 HTS 1 0 :1:2 
 `uc 1 OSTS 1 0 :1:3 
 `uc 1 IRCF 1 0 :3:4 
 ]
 "1882
-[s S62 . 1 `uc 1 . 1 0 :4:0 
+[s S56 . 1 `uc 1 . 1 0 :4:0 
 `uc 1 IRCF0 1 0 :1:4 
 `uc 1 IRCF1 1 0 :1:5 
 `uc 1 IRCF2 1 0 :1:6 
 ]
-[u S67 . 1 `S56 1 . 1 0 `S62 1 . 1 0 ]
-[v _OSCCONbits OSCCONbits `VES67  1 e 1 @143 ]
-[s S105 . 1 `uc 1 TX9D 1 0 :1:0 
+[u S61 . 1 `S50 1 . 1 0 `S56 1 . 1 0 ]
+[v _OSCCONbits OSCCONbits `VES61  1 e 1 @143 ]
+[s S99 . 1 `uc 1 TX9D 1 0 :1:0 
 `uc 1 TRMT 1 0 :1:1 
 `uc 1 BRGH 1 0 :1:2 
 `uc 1 SENDB 1 0 :1:3 
@@ -110,20 +107,20 @@
 `uc 1 CSRC 1 0 :1:7 
 ]
 "2582
-[s S114 . 1 `uc 1 TXD8 1 0 :1:0 
+[s S108 . 1 `uc 1 TXD8 1 0 :1:0 
 `uc 1 . 1 0 :5:1 
 `uc 1 nTX8 1 0 :1:6 
 ]
-[s S118 . 1 `uc 1 . 1 0 :6:0 
+[s S112 . 1 `uc 1 . 1 0 :6:0 
 `uc 1 TX8_9 1 0 :1:6 
 ]
-[u S121 . 1 `S105 1 . 1 0 `S114 1 . 1 0 `S118 1 . 1 0 ]
-[v _TXSTAbits TXSTAbits `VES121  1 e 1 @152 ]
+[u S115 . 1 `S99 1 . 1 0 `S108 1 . 1 0 `S112 1 . 1 0 ]
+[v _TXSTAbits TXSTAbits `VES115  1 e 1 @152 ]
 "2642
 [v _SPBRG SPBRG `VEuc  1 e 1 @153 ]
 "2704
 [v _SPBRGH SPBRGH `VEuc  1 e 1 @154 ]
-[s S84 . 1 `uc 1 ABDEN 1 0 :1:0 
+[s S78 . 1 `uc 1 ABDEN 1 0 :1:0 
 `uc 1 WUE 1 0 :1:1 
 `uc 1 . 1 0 :1:2 
 `uc 1 BRG16 1 0 :1:3 
@@ -133,22 +130,48 @@
 `uc 1 ABDOVF 1 0 :1:7 
 ]
 "3352
-[u S93 . 1 `S84 1 . 1 0 ]
-[v _BAUDCTLbits BAUDCTLbits `VES93  1 e 1 @391 ]
+[u S87 . 1 `S78 1 . 1 0 ]
+[v _BAUDCTLbits BAUDCTLbits `VES87  1 e 1 @391 ]
 "3449
 [v _ANSELH ANSELH `VEuc  1 e 1 @393 ]
-"66 C:\Users\jpu20\Documents\GitHub\Repositorio_Micros_19249\Micros\L10\L10.X\L10_1.c
+"4175
+[v _RCIF RCIF `VEb  1 e 0 @101 ]
+"4544
+[v _TXIF TXIF `VEb  1 e 0 @100 ]
+"47 C:\Users\jpu20\Documents\GitHub\Repositorio_Micros_19249\Micros\L10\L10.X\L10_1.c
+[v _puerto_a puerto_a `uc  1 e 1 0 ]
+[v _puerto_b puerto_b `uc  1 e 1 0 ]
+"58
 [v _main main `(v  1 e 1 0 ]
 {
-"75
+"65
 } 0
-"86
+"111
 [v _setup setup `(v  1 e 1 0 ]
 {
-"122
+"148
 } 0
-"53
-[v _isr isr `II(v  1 e 1 0 ]
+"76
+[v _mensaje mensaje `(v  1 e 1 0 ]
 {
-"61
+"106
+} 0
+"477 C:\Program Files\Microchip\xc8\v2.31\pic\sources\c90\common\doprnt.c
+[v _printf printf `(i  1 e 2 0 ]
+{
+"512
+[v printf@c c `uc  1 a 1 7 ]
+"479
+[v printf@ap ap `[1]*.1v  1 a 1 6 ]
+"477
+[v printf@f f `*.25DCuc  1 p 2 1 ]
+"1567
+} 0
+"70 C:\Users\jpu20\Documents\GitHub\Repositorio_Micros_19249\Micros\L10\L10.X\L10_1.c
+[v _putch putch `(v  1 e 1 0 ]
+{
+[v putch@data data `uc  1 a 1 wreg ]
+[v putch@data data `uc  1 a 1 wreg ]
+[v putch@data data `uc  1 a 1 0 ]
+"74
 } 0
