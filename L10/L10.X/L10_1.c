@@ -69,12 +69,12 @@ void main(void){
  =============================================================================*/
 void putch(char data){
     while(TXIF == 0);
-    TXREG = data;
+    TXREG = data; //transmite los datos al recibir un printf en alguna  parte 
     return;
 }
 
 void mensaje(void){
-    __delay_ms(500);
+    __delay_ms(500); //para que despliegue los datos en el tiempo correcto
     printf("\r Que accion desea ejecutar \r");
     __delay_ms(250);
     printf("(1) Desplegar cadena de caracteres \r");
@@ -87,19 +87,19 @@ void mensaje(void){
         __delay_ms(500);
         printf("\r Usted puede leer este mensaje \r");
     }
-    if (RCREG == '2'){
+    if (RCREG == '2'){ //segunda opcion del menu
         printf("\r Presione el caracter para desplegar en PORTA: \r");
         while (RCIF == 0);
         puerto_a = RCREG; //para recibir un caracter
         PORTA = puerto_a;
     }
-    if (RCREG == '3'){
+    if (RCREG == '3'){ //tercera opcion del menu
         printf("\r Presione el caracter para desplegar en PORTB: \r");
         while (RCIF == 0);
         puerto_b = RCREG;
         PORTB = puerto_b;
     }
-    else{
+    else{ //cualquier otra opcion que no este en el menu
         NULL;
     }
     return;
