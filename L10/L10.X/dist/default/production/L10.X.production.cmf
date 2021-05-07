@@ -23,7 +23,7 @@ stringtext STRCODE 0 800 800 F1 2
 strings STRING 0 3 3 12 2
 bssCOMMON COMMON 1 7B 7B 2 1
 config CONFIG 4 2007 2007 2 2
-$C:\Users\jpu20\AppData\Local\Temp\se9c.o
+$C:\Users\jpu20\AppData\Local\Temp\s3uk.o
 end_init CODE 0 0 0 3 2
 config CONFIG 4 2007 2007 2 2
 # %UNUSED Section
@@ -72,13 +72,13 @@ STRING 8F1-1FFF 2
 # All other numeric values are in decimal.
 %LINETAB
 $dist/default/production\L10.X.production.o
-7FA cinit CODE >758:C:\Users\jpu20\AppData\Local\Temp\se9c.s
-7FA cinit CODE >761:C:\Users\jpu20\AppData\Local\Temp\se9c.s
-7FA cinit CODE >775:C:\Users\jpu20\AppData\Local\Temp\se9c.s
-7FB cinit CODE >776:C:\Users\jpu20\AppData\Local\Temp\se9c.s
-7FC cinit CODE >782:C:\Users\jpu20\AppData\Local\Temp\se9c.s
-7FC cinit CODE >784:C:\Users\jpu20\AppData\Local\Temp\se9c.s
-7FD cinit CODE >785:C:\Users\jpu20\AppData\Local\Temp\se9c.s
+7FA cinit CODE >758:C:\Users\jpu20\AppData\Local\Temp\s3uk.s
+7FA cinit CODE >761:C:\Users\jpu20\AppData\Local\Temp\s3uk.s
+7FA cinit CODE >775:C:\Users\jpu20\AppData\Local\Temp\s3uk.s
+7FB cinit CODE >776:C:\Users\jpu20\AppData\Local\Temp\s3uk.s
+7FC cinit CODE >782:C:\Users\jpu20\AppData\Local\Temp\s3uk.s
+7FC cinit CODE >784:C:\Users\jpu20\AppData\Local\Temp\s3uk.s
+7FD cinit CODE >785:C:\Users\jpu20\AppData\Local\Temp\s3uk.s
 6E0 text4 CODE >70:C:\Users\jpu20\Documents\GitHub\Repositorio_Micros_19249\Micros\L10\L10.X\L10_1.c
 6E1 text4 CODE >71:C:\Users\jpu20\Documents\GitHub\Repositorio_Micros_19249\Micros\L10\L10.X\L10_1.c
 6E7 text4 CODE >72:C:\Users\jpu20\Documents\GitHub\Repositorio_Micros_19249\Micros\L10\L10.X\L10_1.c
@@ -165,21 +165,21 @@ __Lstringtext 0 0 ABS 0 stringtext -
 __Hstrings 0 0 ABS 0 strings -
 _RCIF 65 0 ABS 0 - dist/default/production\L10.X.production.o
 _TXIF 64 0 ABS 0 - dist/default/production\L10.X.production.o
-___sp 0 0 STACK 2 stack C:\Users\jpu20\AppData\Local\Temp\se9c.o
+___sp 0 0 STACK 2 stack C:\Users\jpu20\AppData\Local\Temp\s3uk.o
 _main DD4 0 CODE 0 maintext dist/default/production\L10.X.production.o
 btemp 7E 0 ABS 0 - dist/default/production\L10.X.production.o
-start 0 0 CODE 0 init C:\Users\jpu20\AppData\Local\Temp\se9c.o
+start 0 0 CODE 0 init C:\Users\jpu20\AppData\Local\Temp\s3uk.o
 __size_of_main 0 0 ABS 0 - dist/default/production\L10.X.production.o
 __HbssCOMMON 0 0 ABS 0 bssCOMMON -
 __Hpowerup 0 0 CODE 0 powerup -
 printf@c 77 0 COMMON 1 cstackCOMMON dist/default/production\L10.X.production.o
 printf@f 71 0 COMMON 1 cstackCOMMON dist/default/production\L10.X.production.o
-intlevel0 0 0 ENTRY 0 functab C:\Users\jpu20\AppData\Local\Temp\se9c.o
-intlevel1 0 0 ENTRY 0 functab C:\Users\jpu20\AppData\Local\Temp\se9c.o
-intlevel2 0 0 ENTRY 0 functab C:\Users\jpu20\AppData\Local\Temp\se9c.o
-intlevel3 0 0 ENTRY 0 functab C:\Users\jpu20\AppData\Local\Temp\se9c.o
-intlevel4 0 0 ENTRY 0 functab C:\Users\jpu20\AppData\Local\Temp\se9c.o
-intlevel5 0 0 ENTRY 0 functab C:\Users\jpu20\AppData\Local\Temp\se9c.o
+intlevel0 0 0 ENTRY 0 functab C:\Users\jpu20\AppData\Local\Temp\s3uk.o
+intlevel1 0 0 ENTRY 0 functab C:\Users\jpu20\AppData\Local\Temp\s3uk.o
+intlevel2 0 0 ENTRY 0 functab C:\Users\jpu20\AppData\Local\Temp\s3uk.o
+intlevel3 0 0 ENTRY 0 functab C:\Users\jpu20\AppData\Local\Temp\s3uk.o
+intlevel4 0 0 ENTRY 0 functab C:\Users\jpu20\AppData\Local\Temp\s3uk.o
+intlevel5 0 0 ENTRY 0 functab C:\Users\jpu20\AppData\Local\Temp\s3uk.o
 __LbssCOMMON 0 0 ABS 0 bssCOMMON -
 _OSCCONbits 8F 0 ABS 0 - dist/default/production\L10.X.production.o
 wtemp0 7E 0 ABS 0 - dist/default/production\L10.X.production.o
@@ -188,8 +188,8 @@ __Hclrtext 0 0 ABS 0 clrtext -
 _ANSELH 189 0 ABS 0 - dist/default/production\L10.X.production.o
 __Lmaintext 0 0 ABS 0 maintext -
 ?_printf 71 0 COMMON 1 cstackCOMMON dist/default/production\L10.X.production.o
-___stackhi 0 0 ABS 0 - C:\Users\jpu20\AppData\Local\Temp\se9c.o
-___stacklo 0 0 ABS 0 - C:\Users\jpu20\AppData\Local\Temp\se9c.o
+___stackhi 0 0 ABS 0 - C:\Users\jpu20\AppData\Local\Temp\s3uk.o
+___stacklo 0 0 ABS 0 - C:\Users\jpu20\AppData\Local\Temp\s3uk.o
 _BAUDCTLbits 187 0 ABS 0 - dist/default/production\L10.X.production.o
 __size_of_putch 0 0 ABS 0 - dist/default/production\L10.X.production.o
 __size_of_setup 0 0 ABS 0 - dist/default/production\L10.X.production.o
@@ -197,7 +197,7 @@ start_initialization FF4 0 CODE 0 cinit dist/default/production\L10.X.production
 __size_of_mensaje 0 0 ABS 0 - dist/default/production\L10.X.production.o
 _SPBRGH 9A 0 ABS 0 - dist/default/production\L10.X.production.o
 __end_of_printf E3C 0 CODE 0 text3 dist/default/production\L10.X.production.o
-___int_sp 0 0 STACK 2 stack C:\Users\jpu20\AppData\Local\Temp\se9c.o
+___int_sp 0 0 STACK 2 stack C:\Users\jpu20\AppData\Local\Temp\s3uk.o
 __Hbank0 0 0 ABS 0 bank0 -
 __Hbank1 0 0 ABS 0 bank1 -
 __Hbank2 0 0 ABS 0 bank2 -
@@ -239,7 +239,7 @@ __S3 0 0 ABS 0 - -
 __end_of_mensaje FF4 0 CODE 0 text2 dist/default/production\L10.X.production.o
 __Lintentry 0 0 CODE 0 intentry -
 __stringtab 6 0 STRING 0 strings dist/default/production\L10.X.production.o
-reset_vec 0 0 CODE 0 reset_vec C:\Users\jpu20\AppData\Local\Temp\se9c.o
+reset_vec 0 0 CODE 0 reset_vec C:\Users\jpu20\AppData\Local\Temp\s3uk.o
 _RCSTAbits 18 0 ABS 0 - dist/default/production\L10.X.production.o
 __pmaintext DD4 0 CODE 0 maintext dist/default/production\L10.X.production.o
 __Lcommon 0 0 ABS 0 common -
